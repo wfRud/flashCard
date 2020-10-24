@@ -1,3 +1,6 @@
-@import "_globalStyles";
-
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 @import "~bootstrap/scss/bootstrap";
+@import "varriables";
+
+@import "_globalStyles";
+@import "_navigation";

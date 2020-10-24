@@ -2,8 +2,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: $main-font;
+}
+body {
+  background-color: #fff;
 }
 
 .container {
-  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
 }
