@@ -1,0 +1,108 @@
+.card_panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 50px;
+  height: auto;
+  margin-top: 30px;
+  border: 1px solid $dark;
+  border-radius: 5px;
+
+  &__add {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 50px;
+    padding: 0 20px;
+
+    &__text {
+      margin: 0;
+    }
+    &__icon {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      padding: 5px;
+      background-color: $bs_green;
+      border-radius: 50%;
+      .icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  &__form {
+    max-height: 0;
+    padding: 0 20px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+
+    &.expanded {
+      height: auto;
+      max-height: 600px;
+      transition: max-height 0.5s ease-out;
+    }
+
+    label {
+      display: inline-block;
+      width: 100%;
+      font-size: 12px;
+      margin-bottom: 0;
+
+      &[for="checkboxes-cnt"] {
+        margin-top: 20px;
+        margin-bottom: 8px;
+      }
+    }
+
+    &__input {
+      width: 100%;
+      border-radius: 5px;
+      min-height: 150px;
+      height: auto;
+      padding: 5px;
+      font-size: 14px;
+      resize: unset;
+      outline: unset;
+
+      &.category {
+        width: 50%;
+        border-width: 1px;
+        min-height: unset;
+        height: 30px;
+      }
+    }
+
+    &__checkboxes-cnt {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 15px;
+
+      label {
+        font-size: 10px;
+      }
+
+      input {
+        margin: 0 5px;
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .btn {
+      display: block;
+      margin: 10px 0 10px auto;
+      font-size: 14px;
+    }
+  }
+}
