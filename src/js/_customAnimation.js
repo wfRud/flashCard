@@ -4,7 +4,7 @@ window.onload = (function () {
   const cardPanelAddBtn = document.querySelector(".card_panel__add__icon");
   const cardPanelForm = document.querySelector(".card_panel__form");
 
-  cardPanelAddBtn.addEventListener("click", () => {
+  cardPanelAddBtn.addEventListener("click", (e) => {
     cardPanelForm.classList.toggle("expanded");
   });
 
