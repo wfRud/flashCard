@@ -2,7 +2,14 @@
 $dark: #000;
 $white: #fff;
 $bs_green: #5cb85c;
-$red: rgb(255, 255, 0);
 
 // Fonts
 $main-font: "Lato", sans-serif;
+
+// Mixins
+
+@mixin setFlexbox($display, $justifyContent, $alignItems) {
+  display: $display;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+}

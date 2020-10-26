@@ -1,12 +1,11 @@
 .navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include setFlexbox(flex, space-between, center);
   width: 100%;
   max-height: 40px;
   height: 10%;
   margin-top: 20px;
   overflow: hidden;
+
   // ===LOGO===
   &__logo {
     flex: 1 1 0;
@@ -18,8 +17,7 @@
     max-width: 250px;
     margin-bottom: 0;
 
-    display: flex;
-    justify-content: space-around;
+    @include setFlexbox(flex, space-around, center);
     transform: translateX(200%);
     overflow: hidden;
     transition: transform 0.5s 0.3s;
