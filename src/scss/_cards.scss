@@ -1,7 +1,6 @@
 .cards_cnt {
   flex: 2 0 0;
-  display: flex;
-  justify-content: space-between;
+  @include setFlexbox(flex, space-between, center);
   align-items: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
@@ -9,12 +8,13 @@
   margin: 25px 0;
 
   &__card {
+    position: relative;
     justify-self: flex-start;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include setFlexbox(flex, center, center);
+    flex-direction: column;
     width: 147px;
-    height: 89px;
+    height: auto;
+    min-height: 89px;
     margin-bottom: 25px;
     text-align: center;
     font-size: 13px;
@@ -23,6 +23,33 @@
 
     &__text {
       margin-bottom: 0;
+    }
+
+    &__edit-panel {
+      @include setFlexbox(flex, space-between, center);
+      width: 70%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      &.expanded {
+        height: auto;
+        max-height: 25px;
+        transition: max-height 0.3s ease-out;
+      }
+      span {
+        position: relative;
+        width: 35px;
+        height: 35px;
+        margin: 0 5px;
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 50%;
+          height: 50%;
+          transform: translate(50%, 50%);
+        }
+      }
     }
   }
 }
