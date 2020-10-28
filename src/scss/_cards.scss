@@ -1,11 +1,12 @@
 .cards_cnt {
   flex: 2 0 0;
   @include setFlexbox(flex, space-between, center);
-  align-items: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
   margin: 25px 0;
+  font-size: 13px;
+  text-align: center;
 
   &__card {
     position: relative;
@@ -13,41 +14,74 @@
     @include setFlexbox(flex, center, center);
     flex-direction: column;
     width: 147px;
-    height: auto;
-    min-height: 89px;
-    margin-bottom: 25px;
-    text-align: center;
-    font-size: 13px;
-    border: 1px solid #000;
-    border-radius: 5px;
+    height: 89px;
+    perspective: 1000px;
 
-    &__text {
-      margin-bottom: 0;
+    &:hover &__inner {
+      transform: rotateY(180deg);
+      cursor: pointer;
     }
 
-    &__edit-panel {
-      @include setFlexbox(flex, space-between, center);
-      width: 70%;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-      &.expanded {
-        height: auto;
-        max-height: 25px;
-        transition: max-height 0.3s ease-out;
-      }
-      span {
-        position: relative;
-        width: 35px;
-        height: 35px;
-        margin: 0 5px;
-        img {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 50%;
-          height: 50%;
-          transform: translate(50%, 50%);
+    &__inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      border: 1px solid #000;
+      border-radius: 5px;
+
+      &__side {
+        @include setFlexbox(flex, center, center);
+        flex-direction: column;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+
+        &.front {
+          background-color: $white;
+          border-radius: 5px;
+        }
+        &.back {
+          background-color: $dark;
+          color: $white;
+          transform: rotateY(180deg);
+          border-radius: 5px;
+        }
+
+        &__text {
+          margin-bottom: 0;
+        }
+
+        &__edit-panel {
+          @include setFlexbox(flex, space-around, center);
+          background-color: #fff;
+          width: 100%;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease-out;
+
+          &.expanded {
+            height: auto;
+            max-height: 25px;
+            transition: max-height 0.3s ease-out;
+          }
+          span {
+            position: relative;
+            width: 35px;
+            height: 35px;
+            margin: 0 5px;
+            img {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 50%;
+              height: 50%;
+              transform: translate(50%, 50%);
+            }
+          }
         }
       }
     }

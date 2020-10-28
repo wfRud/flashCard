@@ -30,36 +30,45 @@
             <img class="icon" src="./images/plus-solid.svg" alt="plus icon" />
           </div>
         </div>
-        <form action="" class="card_panel__form">
-          <label for="answer_textarea">add your question</label>
+        <form action="" id="addCardForm" class="card_panel__form">
+          <label for="question">add your question</label>
           <textarea
-            name=""
+            name="form-input"
             id="question_textarea"
             class="card_panel__form__input question"
+            data-error="To add a question, you must enter the content. The content have to shorter than"
+            data-content="add your question"
+            ;
           ></textarea>
-          <label for="answer_textarea">add your answer</label>
+          <label for="answer">add your answer</label>
           <textarea
-            name=""
+            name="form-input"
             id="answer_textarea"
             class="card_panel__form__input answer"
+            data-error="To add a question, you must enter question and answer content. The content have to be shorter than"
+            data-content="add your answer"
+            ;
           ></textarea>
           <label for="category_input">add category </label>
           <input
+            name="category-input"
             id="category_input"
             type="text"
             class="card_panel__form__input category"
+            data-error="Category Error"
+            ;
           />
           <label for="checkboxes-cnt">choose your category</label>
           <div class="card_panel__form__checkboxes-cnt" id="checkboxes-cnt">
-            <input type="checkbox" name="javascript" id="javascript" />
+            <input type="checkbox" name="category" id="javascript" checked />
             <label for="javascript">Javascript</label>
-            <input type="checkbox" name="react" id="react" />
+            <input type="checkbox" name="category" id="react" />
             <label for="react">React</label>
-            <input type="checkbox" name="html" id="html" />
+            <input type="checkbox" name="category" id="html" />
             <label for="html">HTML</label>
-            <input type="checkbox" name="css" id="css" />
+            <input type="checkbox" name="category" id="css" />
             <label for="css">CSS</label>
-            <input type="checkbox" name="webpack" id="webpack" />
+            <input type="checkbox" name="category" id="webpack" />
             <label for="webpack">WebPack</label>
           </div>
           <button class="btn btn-success">add card</button>
@@ -67,58 +76,25 @@
       </div>
       <div class="cards_cnt">
         <div class="cards_cnt__card">
-          <p class="cards_cnt__card__text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit ?
-          </p>
-          <div class="cards_cnt__card__edit-panel">
-            <span> <img src="./images/edit-regular.svg" alt="edi icon" /></span>
-            <span
-              ><img src="./images/trash-alt-regular.svg" alt="delete icon"
-            /></span>
-          </div>
-        </div>
-        <div class="cards_cnt__card">
-          <p class="cards_cnt__card__text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit ?
-          </p>
-          <div class="cards_cnt__card__edit-panel">
-            <span> <img src="./images/edit-regular.svg" alt="edi icon" /></span>
-            <span
-              ><img src="./images/trash-alt-regular.svg" alt="delete icon"
-            /></span>
-          </div>
-        </div>
-        <div class="cards_cnt__card">
-          <p class="cards_cnt__card__text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit ?
-          </p>
-          <div class="cards_cnt__card__edit-panel">
-            <span> <img src="./images/edit-regular.svg" alt="edi icon" /></span>
-            <span
-              ><img src="./images/trash-alt-regular.svg" alt="delete icon"
-            /></span>
-          </div>
-        </div>
-        <div class="cards_cnt__card">
-          <p class="cards_cnt__card__text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit ?
-          </p>
-          <div class="cards_cnt__card__edit-panel">
-            <span> <img src="./images/edit-regular.svg" alt="edi icon" /></span>
-            <span
-              ><img src="./images/trash-alt-regular.svg" alt="delete icon"
-            /></span>
-          </div>
-        </div>
-        <div class="cards_cnt__card">
-          <p class="cards_cnt__card__text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit ?
-          </p>
-          <div class="cards_cnt__card__edit-panel">
-            <span> <img src="./images/edit-regular.svg" alt="edi icon" /></span>
-            <span
-              ><img src="./images/trash-alt-regular.svg" alt="delete icon"
-            /></span>
+          <div class="cards_cnt__card__inner">
+            <div class="cards_cnt__card__inner__side front">
+              <p class="cards_cnt__card__inner__side__text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit ?
+              </p>
+            </div>
+            <div class="cards_cnt__card__inner__side back">
+              <p class="cards_cnt__card__inner__side__text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit ?
+              </p>
+              <div class="cards_cnt__card__inner__side__edit-panel">
+                <span
+                  ><img src="./images/edit-regular.svg" alt="edi icon"
+                /></span>
+                <span
+                  ><img src="./images/trash-alt-regular.svg" alt="delete icon"
+                /></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

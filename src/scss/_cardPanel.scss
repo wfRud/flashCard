@@ -51,6 +51,11 @@
       width: 100%;
       font-size: 12px;
       margin-bottom: 0;
+      transition: 0.4s;
+
+      &.error {
+        color: $bs_red;
+      }
 
       &[for="checkboxes-cnt"] {
         margin-top: 20px;
@@ -73,6 +78,10 @@
         border-width: 1px;
         min-height: unset;
         height: 20px;
+      }
+
+      &.error {
+        border-color: $bs_red;
       }
     }
 
