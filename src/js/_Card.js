@@ -5,4 +5,9 @@ export default class Card {
     this.answerContent = answerContent;
     this.category = category;
   }
+
+  createCard() {
+    console.log(this.questionContent);
+    console.log(this.questionAnswer);
+  }
 }

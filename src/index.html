@@ -33,21 +33,21 @@
         <form action="" id="addCardForm" class="card_panel__form">
           <label for="question">add your question</label>
           <textarea
+            type="textarea"
             name="form-input"
-            id="question_textarea"
+            id="question"
             class="card_panel__form__input question"
             data-error="To add a question, you must enter the content. The content have to shorter than"
             data-content="add your question"
-            ;
           ></textarea>
           <label for="answer">add your answer</label>
           <textarea
+            type="textarea"
             name="form-input"
-            id="answer_textarea"
+            id="answer"
             class="card_panel__form__input answer"
             data-error="To add a question, you must enter question and answer content. The content have to be shorter than"
             data-content="add your answer"
-            ;
           ></textarea>
           <label for="category_input">add category </label>
           <input
@@ -55,20 +55,24 @@
             id="category_input"
             type="text"
             class="card_panel__form__input category"
-            data-error="Category Error"
-            ;
           />
-          <label for="checkboxes-cnt">choose your category</label>
+          <label
+            for="checkboxes-cnt"
+            data-content="choose your category"
+            data-warning="Add category"
+            class="checkboxes-cnt_label"
+            >choose your category</label
+          >
           <div class="card_panel__form__checkboxes-cnt" id="checkboxes-cnt">
-            <input type="checkbox" name="category" id="javascript" checked />
+            <input type="checkbox" name="form-input" id="javascript" />
             <label for="javascript">Javascript</label>
-            <input type="checkbox" name="category" id="react" />
+            <input type="checkbox" name="form-input" id="react" />
             <label for="react">React</label>
-            <input type="checkbox" name="category" id="html" />
+            <input type="checkbox" name="form-input" id="html" />
             <label for="html">HTML</label>
-            <input type="checkbox" name="category" id="css" />
+            <input type="checkbox" name="form-input" id="css" />
             <label for="css">CSS</label>
-            <input type="checkbox" name="category" id="webpack" />
+            <input type="checkbox" name="form-input" id="webpack" />
             <label for="webpack">WebPack</label>
           </div>
           <button class="btn btn-success">add card</button>
@@ -86,7 +90,7 @@
               <p class="cards_cnt__card__inner__side__text">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit ?
               </p>
-              <div class="cards_cnt__card__inner__side__edit-panel">
+              <div class="cards_cnt__card__inner__side__edit-panel expanded">
                 <span
                   ><img src="./images/edit-regular.svg" alt="edi icon"
                 /></span>

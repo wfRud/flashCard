@@ -57,6 +57,10 @@
         color: $bs_red;
       }
 
+      &.warning {
+        color: $bs_orange;
+      }
+
       &[for="checkboxes-cnt"] {
         margin-top: 20px;
         margin-bottom: 8px;
