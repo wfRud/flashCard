@@ -1,14 +1,20 @@
-// import { Card } from "./_Card";
-
 export default class Form {
   constructor(maxLength) {
-    const _maxLength = maxLength,
-      _form = document.getElementById("addCardForm"),
-      _formInputs = document.querySelectorAll("[name=form-input]");
-
     this.getForm = () => _form;
     this.getFormInputs = () => _formInputs;
     this.getMaxLength = () => _maxLength;
+    this.getCheckedInputs = () => _checkedInputs;
+    this.getQuestionInput = () => _questionInputValue;
+    this.getAnswerInput = () => _answerInputValue;
+    this.getCategoryInput = () => _categoryInputValue;
+
+    const _maxLength = maxLength,
+      _form = document.getElementById("addCardForm"),
+      _formInputs = document.querySelectorAll("[name=form-input]"),
+      _checkedInputs = [],
+      _questionInputValue = this.getFormInputs()[0],
+      _answerInputValue = this.getFormInputs()[1],
+      _categoryInputValue = this.getFormInputs()[2];
 
     this.isNotEmpty = (field) => field.value !== "";
     this.isAtLeast = (field, max) => {
@@ -16,11 +22,24 @@ export default class Form {
     };
     this.isChecked = () => {
       const isChecked = document.querySelectorAll("[type=checkbox]:checked");
-      return isChecked.length ? true : false;
+      return isChecked;
+    };
+
+    this.clearForm = () => {
+      this.getQuestionInput().value = "";
+      this.getAnswerInput().value = "";
+      this.getCategoryInput().value = "";
+      this.getCheckedInputs().length = 0;
+
+      for (let radio of this.isChecked()) {
+        radio.checked = false;
+      }
     };
 
     this.inputsValids = () => {
       let isValid = false;
+      let isChecked = false;
+
       this.getFormInputs().forEach((item) => {
         if (item.type === "textarea") {
           isValid =
@@ -35,8 +54,8 @@ export default class Form {
             item.previousElementSibling.classList.remove("error");
           }
         } else if (item.type === "checkbox") {
-          isValid = this.isChecked();
-          if (!isValid) {
+          isChecked = !!this.isChecked().length;
+          if (!isChecked) {
             const label = document.querySelector(".checkboxes-cnt_label");
             label.textContent = label.dataset.warning;
             label.classList.add("warning");
@@ -47,17 +66,19 @@ export default class Form {
           }
         }
       });
-      return isValid;
+
+      if (isChecked) {
+        for (let radio of this.isChecked()) {
+          this.getCheckedInputs().push(radio.value);
+        }
+      }
+
+      if (isValid && isChecked) {
+        return true;
+      } else {
+        this.clearForm();
+        return false;
+      }
     };
-
-    this.getForm().addEventListener("submit", this.submitForm.bind(this));
-  }
-
-  submitForm(e) {
-    e.preventDefault();
-
-    if (this.inputsValids()) {
-      console.log("dodaję kartę");
-    }
   }
 }
