@@ -9,6 +9,7 @@
   @include setFlexbox(flex, space-between, center);
   flex-direction: column;
   width: 100vw;
+  max-width: 800px;
   height: 95vh;
   padding-left: 5px;
   padding-right: 5px;

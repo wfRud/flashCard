@@ -9,6 +9,7 @@ export default class Card {
   createCard() {
     const cardCnt = document.querySelector(".cards_cnt"),
       card = document.createElement("div"),
+      // hiddenCard = document.getElementById("hidden__card"),
       cardElements = `
                         <div class="cards_cnt__card__inner">
                           <div class="cards_cnt__card__inner__side front">

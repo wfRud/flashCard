@@ -1,6 +1,6 @@
 .cards_cnt {
-  flex: 2 0 0;
-  @include setFlexbox(flex, space-between, center);
+  flex: 1 0 0;
+  @include setFlexbox(flex, space-between, flex-start);
   align-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
@@ -8,14 +8,20 @@
   font-size: 13px;
   text-align: center;
 
+  &::after {
+    content: "";
+    flex: auto;
+  }
+
   &__card {
     position: relative;
-    justify-self: flex-start;
     @include setFlexbox(flex, center, center);
+    flex: 0 0 147px;
     flex-direction: column;
-    width: 147px;
     height: 89px;
     perspective: 1000px;
+    margin: 0 10px 10px 0;
+    animation: slide-up 0.4s ease;
 
     &:hover &__inner {
       transform: rotateY(180deg);
@@ -85,5 +91,16 @@
         }
       }
     }
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
