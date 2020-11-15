@@ -1,20 +1,22 @@
+import Storage from "./_Storage";
+
 export default class Form {
   constructor(maxLength) {
     this.getForm = () => _form;
     this.getFormInputs = () => _formInputs;
     this.getMaxLength = () => _maxLength;
     this.getCheckedInputs = () => _checkedInputs;
-    this.getQuestionInput = () => _questionInputValue;
-    this.getAnswerInput = () => _answerInputValue;
-    this.getCategoryInput = () => _categoryInputValue;
+    this.getQuestionInput = () => _questionInput;
+    this.getAnswerInput = () => _answerInput;
+    this.getCategoryInput = () => _categoryInput;
 
     const _maxLength = maxLength,
       _form = document.getElementById("addCardForm"),
       _formInputs = document.querySelectorAll("[name=form-input]"),
       _checkedInputs = [],
-      _questionInputValue = this.getFormInputs()[0],
-      _answerInputValue = this.getFormInputs()[1],
-      _categoryInputValue = this.getFormInputs()[2];
+      _questionInput = this.getFormInputs()[0],
+      _answerInput = this.getFormInputs()[1],
+      _categoryInput = this.getFormInputs()[2];
 
     this.isNotEmpty = (field) => field.value !== "";
     this.isAtLeast = (field, max) => {
@@ -25,12 +27,27 @@ export default class Form {
       return isChecked;
     };
 
+    this.setInputStorage = (input) =>
+      input.addEventListener("input", () =>
+        Storage.setStorage(input.id, input.value)
+      );
+
+    this.getInputStorage = (input) => {
+      input.value = Storage.getStorage(input.id);
+    };
+
     this.clearForm = () => {
+      // Clear fields
       this.getQuestionInput().value = "";
       this.getAnswerInput().value = "";
       this.getCategoryInput().value = "";
       this.getCheckedInputs().length = 0;
 
+      // Clear Storage
+      Storage.removeStorage(this.getQuestionInput().id);
+      Storage.removeStorage(this.getAnswerInput().id);
+
+      // Clear Radio inputs
       for (let radio of this.isChecked()) {
         radio.checked = false;
       }

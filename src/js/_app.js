@@ -1,13 +1,22 @@
 import User from "./_User";
 import Card from "./_Card";
 import Form from "./_Form";
+import Storage from "./_Storage";
 
 export default class App {
   constructor() {
     this.user = new User("Janek", "Kowalski");
     this.form = new Form(150);
 
+    this.user.updateCards(Storage.getStorage("cards"));
+
+    this.form.getInputStorage(this.form.getQuestionInput());
+    this.form.getInputStorage(this.form.getAnswerInput());
+    this.form.setInputStorage(this.form.getQuestionInput());
+    this.form.setInputStorage(this.form.getAnswerInput());
+
     this.form.getForm().addEventListener("submit", this.sendForm.bind(this));
+    this.renderCards(Storage.getStorage("cards"));
   }
 
   sendForm(e) {
@@ -19,16 +28,25 @@ export default class App {
         this.form.getAnswerInput().value,
         [...this.form.getCheckedInputs()]
       );
+
       this.user.setCards(card);
+      Storage.setStorage("cards", this.user.getCards());
       card.createCard();
-      console.log(this.user.getCards());
+      card.deleteCard(this.user.getCards());
       this.form.clearForm();
     }
   }
 
   renderCards(cards) {
-    cards.forEach((card) => {
+    cards.forEach((item) => {
+      const card = new Card(
+        item.id,
+        item.questionContent,
+        item.answerContent,
+        item.category
+      );
       card.createCard();
+      card.deleteCard(this.user.getCards());
     });
   }
 }

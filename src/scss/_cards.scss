@@ -79,6 +79,26 @@
             width: 35px;
             height: 35px;
             margin: 0 5px;
+
+            &:first-of-type {
+              &:hover {
+                img {
+                  transform: translate(50%, 50%) scale(1.1);
+                  filter: invert(67%) sepia(97%) saturate(620%)
+                    hue-rotate(353deg) brightness(104%) contrast(102%);
+                }
+              }
+            }
+            &:last-of-type {
+              &:hover {
+                img {
+                  transform: translate(50%, 50%) scale(1.1);
+                  filter: invert(37%) sepia(84%) saturate(5240%)
+                    hue-rotate(338deg) brightness(91%) contrast(88%);
+                }
+              }
+            }
+
             img {
               position: absolute;
               top: 0;
@@ -86,6 +106,7 @@
               width: 50%;
               height: 50%;
               transform: translate(50%, 50%);
+              transition: transform 0.3s ease-out, filter 0.1s ease-out;
             }
           }
         }

@@ -25,6 +25,11 @@
       padding: 5px;
       background-color: $bs_green;
       border-radius: 50%;
+      transition: transform 0.3s ease-out;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
       .icon {
         position: absolute;
         top: 50%;
