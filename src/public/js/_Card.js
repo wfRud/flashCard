@@ -8,10 +8,12 @@ export default class Card {
     this.category = category;
 
     const _card = document.createElement("div"),
-      _deleteIcon = document.createElement("img");
+      _deleteIcon = document.createElement("img"),
+      _editIcon = document.createElement("img");
 
     this.getCardElement = () => _card;
     this.getDeleteIcon = () => _deleteIcon;
+    this.getEditIcon = () => _editIcon;
   }
 
   createCard() {
@@ -23,8 +25,7 @@ export default class Card {
       cardTextBack = document.createElement("p"),
       cardEditPanel = document.createElement("div"),
       editIconCnt = document.createElement("span"),
-      deleteIconCnt = document.createElement("span"),
-      editIcon = document.createElement("img");
+      deleteIconCnt = document.createElement("span");
 
     this.getCardElement().className = "cards_cnt__card";
     cardInner.className = "cards_cnt__card__inner";
@@ -34,15 +35,15 @@ export default class Card {
     cardTextBack.className = "cards_cnt__card__inner__side__text";
     cardEditPanel.className =
       "cards_cnt__card__inner__side__edit-panel expanded";
-    editIcon.src = "./images/edit-regular.svg";
-    editIcon.alt = "edit icon";
+    this.getEditIcon().src = "./images/edit-regular.svg";
+    this.getEditIcon().alt = "edit icon";
     this.getDeleteIcon().src = "./images/trash-alt-regular.svg";
     this.getDeleteIcon().alt = "delete icon";
 
     cardTextFront.textContent = this.questionContent;
     cardTextBack.textContent = this.answerContent;
 
-    editIconCnt.appendChild(editIcon);
+    editIconCnt.appendChild(this.getEditIcon());
     deleteIconCnt.appendChild(this.getDeleteIcon());
     cardEditPanel.appendChild(editIconCnt);
     cardEditPanel.appendChild(deleteIconCnt);
@@ -70,16 +71,27 @@ export default class Card {
     cards.forEach((element, index) => {
       element.setAttribute("id", index);
     });
-    console.log(cards);
   }
 
   deleteCard(arr) {
     this.getDeleteIcon().addEventListener("click", () => {
+      let that = this;
       this.removeCardFromArr(arr);
       this.resetIndex(arr);
-      this.getCardElement().remove();
+
+      this.getCardElement().classList.add("delete");
+      setTimeout(function () {
+        that.getCardElement().remove();
+      }, 300);
+
       this.resetElementAttrIndex();
       Storage.setStorage("cards", arr);
+    });
+  }
+
+  editCard() {
+    this.getEditIcon().addEventListener("click", (e) => {
+      console.log("edit");
     });
   }
 }

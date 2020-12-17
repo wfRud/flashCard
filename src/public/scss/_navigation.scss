@@ -58,6 +58,7 @@
     height: 19px;
     position: relative;
     background-color: $white;
+    transition: translate 0.3s ease-in-out;
 
     &__line {
       position: absolute;
@@ -80,6 +81,11 @@
         transition: top 0.3s, transform 0.3s 0.4s;
         transform-origin: center;
       }
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
     }
 
     &.active {

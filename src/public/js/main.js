@@ -3,8 +3,9 @@ import "../scss/style.scss";
 import "bootstrap";
 
 // ===Icons===
-
 import "../images/Logo.svg";
+
+// ===Icons===
 import "../images/plus-solid.svg";
 import "../images/heart-solid.svg";
 import "../images/angle-left-solid.svg";

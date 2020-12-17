@@ -23,6 +23,14 @@
     margin: 0 10px 10px 0;
     animation: slide-up 0.4s ease;
 
+    &.delete {
+      animation: slide-down 0.4s ease;
+    }
+
+    &.edit &__inner {
+      border-color: $bs_orange;
+    }
+
     &:hover &__inner {
       transform: rotateY(180deg);
       cursor: pointer;
@@ -123,5 +131,15 @@
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+@keyframes slide-down {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
   }
 }

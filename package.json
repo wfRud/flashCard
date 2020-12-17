@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --color"
+    "start": "webpack-dev-server --mode=development --colors",
+    "watch": "webpack --watch",
+    "start-server": "nodemon dist/server.js"
   },
   "keywords": [],
   "author": "",
@@ -23,16 +25,23 @@
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "pug": "^3.0.0",
+    "pug-loader": "^2.4.0",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
-    "webpack": "^4.39.3",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.8",
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "jquery": "^3.5.1",
-    "popper.js": "^1.16.1"
+    "mongoose": "^5.11.8",
+    "popper.js": "^1.16.1",
+    "terser-webpack-plugin": "^4.2.3",
+    "webpack-node-externals": "^2.5.2"
   }
 }

@@ -1,5 +1,3 @@
-import Card from "./_Card";
-
 export default class User {
   constructor(userName, userSurname) {
     this.userName = userName;
@@ -9,10 +7,13 @@ export default class User {
 
     this.getCards = () => _cards;
     this.setCards = (card) => this.getCards().push(card);
-    this.updateCards = (storageCards) =>
-      storageCards.forEach((element) => {
-        this.getCards().push(element);
-      });
+    this.updateCards = (storageCards) => {
+      if (storageCards) {
+        storageCards.forEach((element) => {
+          this.getCards().push(element);
+        });
+      }
+    };
 
     this.removeCardFromArr = (index) => this.getCards().splice(index, 1);
     this.resetIndex = (arr) =>

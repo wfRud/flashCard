@@ -33,20 +33,24 @@ export default class App {
       Storage.setStorage("cards", this.user.getCards());
       card.createCard();
       card.deleteCard(this.user.getCards());
+      card.editCard();
       this.form.clearForm();
     }
   }
 
   renderCards(cards) {
-    cards.forEach((item) => {
-      const card = new Card(
-        item.id,
-        item.questionContent,
-        item.answerContent,
-        item.category
-      );
-      card.createCard();
-      card.deleteCard(this.user.getCards());
-    });
+    if (cards) {
+      cards.forEach((item) => {
+        const card = new Card(
+          item.id,
+          item.questionContent,
+          item.answerContent,
+          item.category
+        );
+        card.createCard();
+        card.deleteCard(this.user.getCards());
+        card.editCard();
+      });
+    }
   }
 }

@@ -1,0 +1,68 @@
+div(class="card_panel")
+    div(class="card_panel__add")
+        p(class="card_panel__add__text") add card
+        div(class="card_panel__add__icon")
+            img(class="icon" src="./images/plus-solid.svg" alt="plus icon")
+      
+  
+    form(action="" id="addCardForm" class="card_panel__form")
+        label(for="question") add your question
+        textarea(
+            type="textarea"
+            name="form-input"
+            id="question"
+            class="card_panel__form__input question"
+            data-error="To add a question, you must enter the content. Thecontent   have to shorter than"
+            data-content="add your question")
+      
+        label(for="answer") add your answer
+        textarea(
+            type="textarea"
+            name="form-input"
+            id="answer"
+            class="card_panel__form__input answer"
+            data-error="To add a question, you must enter question and  answercontent. The content have to be shorter than"
+            data-content="add your answer")
+      
+        label(for="category_input") add category
+        input(
+            name="form-input"
+            id="category_input"
+            type="text"
+            class="card_panel__form__input category"
+            )
+        label(
+            for="checkboxes-cnt"
+            data-content="choose your category"
+            data-warning="Add category !!!"
+            class="checkboxes-cnt_label"
+            ) choose your category
+        div(
+            class="card_panel__form__checkboxes-cnt"
+            id="checkboxes-cnt"
+            name="radioInputs")
+      
+            input(
+                type="checkbox"
+                name="form-input"
+                id="javascript"
+                value="javascript")
+
+            label(for="javascript") Javascript
+            input(type="checkbox" name="form-input" id="react" value="react")
+            label(for="react") React
+            input(type="checkbox" name="form-input" id="html" value="html")
+            label(for="html") HTML
+            input(type="checkbox" name="form-input" id="css" value="css")
+            label(for="css") CSS
+            input(
+              type="checkbox"
+              name="form-input"
+              id="webpack"
+              value="webpack")
+
+            label(for="webpack") WebPack
+      
+        button(class="btn btn-success") add card
+    
+    
