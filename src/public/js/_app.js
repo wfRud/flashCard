@@ -8,17 +8,19 @@ export default class App {
     this.user = new User("Janek", "Kowalski");
     this.form = new Form(150);
 
-    this.user.updateCards(Storage.getStorage("cards"));
+    if (location.pathname === "/dashboard") {
+      this.user.updateCards(Storage.getStorage("cards"));
+      console.log(location);
 
-    this.form.getInputStorage(this.form.getQuestionInput());
-    this.form.getInputStorage(this.form.getAnswerInput());
-    this.form.setInputStorage(this.form.getQuestionInput());
-    this.form.setInputStorage(this.form.getAnswerInput());
+      this.form.getInputStorage(this.form.getQuestionInput());
+      this.form.getInputStorage(this.form.getAnswerInput());
+      this.form.setInputStorage(this.form.getQuestionInput());
+      this.form.setInputStorage(this.form.getAnswerInput());
 
-    this.form.getForm().addEventListener("submit", this.sendForm.bind(this));
-    this.renderCards(Storage.getStorage("cards"));
+      this.form.getForm().addEventListener("submit", this.sendForm.bind(this));
+      this.renderCards(Storage.getStorage("cards"));
+    }
   }
-
   sendForm(e) {
     e.preventDefault();
     if (this.form.inputsValids()) {

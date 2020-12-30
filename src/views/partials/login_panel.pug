@@ -1,0 +1,18 @@
+section(id="login_section")
+    div(class="main_panel main_panel--login")
+        h2(class="main_panel__text") 
+            |Login into your flashCard right here. 
+            br
+            |If you haven't account yet, <a href="/register"> register now.</a>
+            br
+            |New flashCards are waiting for you !
+        
+        form(action="" id="loginPanel" class="main_panel__form")
+
+            label(for="login_input" class="main_panel__form__label") Login:
+            input(name="login" id="login_input" type="text"         class="main_panel__form__input main_panel__form__input--login")
+
+            label(for="password_input" class="main_panel__form__label") Password:
+            input(name="password" id="password_input" type="text"       class="main_panel__form__input main_panel__form__input--password")
+
+            button(class="btn btn-success btn-login") login

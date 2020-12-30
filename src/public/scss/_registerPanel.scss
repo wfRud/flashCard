@@ -1,0 +1,35 @@
+#register_section {
+  width: 100%;
+  margin-top: 80px;
+  margin-bottom: auto;
+  .main_panel {
+    &--register {
+      min-height: 500px;
+      @include setFlexbox(flex, space-around, center);
+    }
+
+    &__form {
+      max-height: unset;
+      width: 60%;
+      height: 70%;
+      margin-bottom: 30px;
+
+      &__label {
+        font-size: 16px;
+        margin-top: 20px;
+      }
+
+      &__input {
+        min-height: 40px;
+      }
+
+      .btn.btn-register {
+        display: block;
+        margin: 15px auto;
+        padding: 6px 28px;
+        font-size: 18px;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}

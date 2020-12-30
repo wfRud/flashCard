@@ -1,9 +1,9 @@
 .navigation {
   @include setFlexbox(flex, space-between, center);
   width: 100%;
-  max-height: 40px;
+  max-height: 50px;
   height: 10%;
-  margin-top: 20px;
+  margin-top: 10px;
   overflow: hidden;
 
   // ===LOGO===
@@ -30,6 +30,11 @@
       list-style: none;
       background-color: $white;
       overflow: hidden;
+
+      a {
+        color: $dark;
+        text-decoration: none;
+      }
 
       &::after {
         content: "";
@@ -58,7 +63,12 @@
     height: 19px;
     position: relative;
     background-color: $white;
-    transition: translate 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
 
     &__line {
       position: absolute;
@@ -81,11 +91,6 @@
         transition: top 0.3s, transform 0.3s 0.4s;
         transform-origin: center;
       }
-    }
-
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.1);
     }
 
     &.active {

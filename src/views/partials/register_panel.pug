@@ -1,0 +1,23 @@
+section(id="register_section")
+    div(class="main_panel main_panel--register")
+        h2(class="main_panel__text") 
+            |Create an Account
+            br
+            |Registering for this site is easy, just fill in the fields below and we'll get a new account set up for you in no time.
+            
+        
+        form(action="" id="registerPanel" class="main_panel__form")
+
+            label(for="register_input" class="main_panel__form__label") Email:
+            input(name="register" id="register_input" type="text"         class="main_panel__form__input main_panel__form__input--register")
+
+            label(for="register_input" class="main_panel__form__label") login:
+            input(name="register" id="register_input" type="text"         class="main_panel__form__input main_panel__form__input--register")
+
+            label(for="password_input" class="main_panel__form__label") Password:
+            input(name="password" id="password_input" type="text"       class="main_panel__form__input main_panel__form__input--password")
+
+            label(for="password_input" class="main_panel__form__label") Repeat Password:
+            input(name="password" id="password_input" type="text"       class="main_panel__form__input main_panel__form__input--password")
+
+            button(class="btn btn-success btn-register") register

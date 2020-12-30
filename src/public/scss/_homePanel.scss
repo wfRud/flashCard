@@ -1,0 +1,10 @@
+#home_section {
+  width: 100%;
+  margin-top: 80px;
+  margin-bottom: auto;
+  .main_panel {
+    min-height: 400px;
+    @include setFlexbox(flex, space-around, center);
+    flex-direction: column;
+  }
+}
