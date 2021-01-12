@@ -10,19 +10,20 @@ export default class App {
 
     if (location.pathname === "/dashboard") {
       this.user.updateCards(Storage.getStorage("cards"));
-      console.log(location);
+      // console.log(location);
 
       this.form.getInputStorage(this.form.getQuestionInput());
       this.form.getInputStorage(this.form.getAnswerInput());
       this.form.setInputStorage(this.form.getQuestionInput());
       this.form.setInputStorage(this.form.getAnswerInput());
 
-      this.form.getForm().addEventListener("submit", this.sendForm.bind(this));
+      this.form.getForm().addEventListener("submit", this.addCard.bind(this));
       this.renderCards(Storage.getStorage("cards"));
     }
   }
-  sendForm(e) {
+  addCard(e) {
     e.preventDefault();
+
     if (this.form.inputsValids()) {
       const card = new Card(
         this.user.getCards().length,

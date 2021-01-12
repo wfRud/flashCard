@@ -61,6 +61,7 @@ export default class Form {
         if (item.type === "textarea") {
           isValid =
             this.isNotEmpty(item) && this.isAtLeast(item, this.getMaxLength());
+
           if (!isValid) {
             item.previousElementSibling.textContent = item.dataset.error;
             item.classList.add("error");
@@ -73,13 +74,19 @@ export default class Form {
         } else if (item.type === "checkbox") {
           isChecked = !!this.isChecked().length;
           if (!isChecked) {
-            const label = document.querySelector(".checkboxes-cnt_label");
-            label.textContent = label.dataset.warning;
-            label.classList.add("warning");
+            const label = document.querySelector(
+              ".main_panel__form__checkboxes-cnt"
+            );
+            label.previousElementSibling.textContent =
+              label.previousElementSibling.dataset.warning;
+            label.previousElementSibling.classList.add("warning");
           } else {
-            const label = document.querySelector(".checkboxes-cnt_label");
-            label.textContent = label.dataset.content;
-            label.classList.remove("warning");
+            const label = document.querySelector(
+              ".main_panel__form__checkboxes-cnt"
+            );
+            label.previousElementSibling.textContent =
+              label.previousElementSibling.dataset.content;
+            label.previousElementSibling.classList.remove("warning");
           }
         }
       });
@@ -89,6 +96,7 @@ export default class Form {
           this.getCheckedInputs().push(radio.value);
         }
       }
+      console.log(`isValid = ${isValid} || isChecked = ${isChecked}`);
 
       if (isValid && isChecked) {
         return true;

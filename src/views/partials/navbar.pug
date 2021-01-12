@@ -1,17 +1,38 @@
 nav(class="navigation")
-        div(class="navigation__logo")
-          a(href="/")
-            img(class="logo" src="/images/Logo.svg" alt="flashCards logo")
-        
+  if user
 
-        ul(class="navigation__list")
-          li(class="navigation__list__item item-1") 
-            a(href="/login") sign in
-          li(class="navigation__list__item item-2")
-            a(href="/register") sign up             
-       
+    div(class="navigation__logo")
+      a(href="/dashboard")
+        img(class="logo" src="/images/Logo.svg" alt="flashCards logo")
 
-        div(class="navigation__burger")
-          span(class="navigation__burger__line line-1")
-          span(class="navigation__burger__line line-2")
-          span(class="navigation__burger__line line-3")
+    //- p.text= "Welcome " + user.login
+    ul(class="navigation__list")
+      li(class="navigation__list__item item-1") 
+        a(href="/user") dashboard
+      li(class="navigation__list__item item-2") 
+        a(href="/user") profile
+      li(class="navigation__list__item item-3")
+        a(href="/logout") logout
+
+    div(class="navigation__burger")
+      span(class="navigation__burger__line line-1")
+      span(class="navigation__burger__line line-2")
+      span(class="navigation__burger__line line-3")
+             
+  else
+
+    div(class="navigation__logo")
+      a(href="/")
+        img(class="logo" src="/images/Logo.svg" alt="flashCards logo")
+
+    ul(class="navigation__list")
+      li(class="navigation__list__item item-1") 
+        a(href="/login") sign in
+      li(class="navigation__list__item item-2")
+        a(href="/register") sign up             
+  
+
+    div(class="navigation__burger")
+      span(class="navigation__burger__line line-1")
+      span(class="navigation__burger__line line-2")
+      span(class="navigation__burger__line line-3")

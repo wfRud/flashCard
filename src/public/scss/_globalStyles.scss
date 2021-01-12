@@ -15,6 +15,10 @@
   padding-right: 5px;
 }
 
+p {
+  margin-bottom: 0;
+}
+
 .main_panel {
   @include setFlexbox(flex, space-between, center);
   flex-direction: column;

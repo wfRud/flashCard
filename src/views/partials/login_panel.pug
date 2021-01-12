@@ -7,7 +7,7 @@ section(id="login_section")
             br
             |New flashCards are waiting for you !
         
-        form(action="" id="loginPanel" class="main_panel__form")
+        form(action="/login" id="loginPanel" class="main_panel__form" method="POST")
 
             label(for="login_input" class="main_panel__form__label") Login:
             input(name="login" id="login_input" type="text"         class="main_panel__form__input main_panel__form__input--login")
