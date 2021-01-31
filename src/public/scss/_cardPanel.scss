@@ -8,6 +8,21 @@
 
     &__text {
       margin: 0;
+      transition: 0.3s;
+      &--msg {
+        &.added {
+          color: $bs_green;
+          font-size: 18px;
+        }
+        &.edit {
+          color: $bs_orange;
+          font-size: 18px;
+        }
+        &.delete {
+          color: $bs_red;
+          font-size: 18px;
+        }
+      }
     }
     &__icon {
       position: relative;
@@ -20,6 +35,10 @@
       &:hover {
         cursor: pointer;
         transform: scale(1.1);
+      }
+
+      &.edit {
+        background-color: $bs_orange;
       }
       .icon {
         position: absolute;
@@ -66,21 +85,28 @@
 
     &__checkboxes-cnt {
       @include setFlexbox(flex, space-between, center);
+      flex-wrap: wrap;
       width: 100%;
       margin-bottom: 15px;
 
       label {
-        margin-bottom: 0;
-        font-size: 10px;
+        margin: 0 15px;
+        font-size: 12px;
+        width: 10%;
       }
 
       input {
-        margin: 0 5px;
+        margin-left: auto;
         vertical-align: text-bottom;
+        float: right;
 
         &:last-of-type {
           margin-right: 0;
         }
+      }
+      &::after {
+        content: "";
+        flex: auto;
       }
     }
 
@@ -88,6 +114,11 @@
       display: block;
       margin: 10px 0 10px auto;
       font-size: 14px;
+
+      &.edit {
+        background-color: $bs_orange;
+        border-color: $bs_orange;
+      }
     }
   }
 }

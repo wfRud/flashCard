@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const indexRoute = require("./routes/index.js");
-const userRoute = require("./routes/users.js");
+const userRoute = require("./routes/user.js");
+const apiRoute = require("./routes/api.js");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -19,6 +20,7 @@ mongoose.connect(
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   }
 );
 mongoose.connection
@@ -37,6 +39,7 @@ app.use(bodyParser.json());
 app.use(
   session({
     secret: "secret",
+    cookie: { _expires: 60000000 },
     resave: true,
     saveUninitialized: true,
   })
@@ -57,15 +60,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/", indexRoute);
 app.use("/user", userRoute);
-
-// app.get("/", (req, res) => {
-//   res.render("login");
-// console.log(session.Session());
-// });
-
-// app.get("/dashboard", (res, req) => {
-//   res.render("dasboard");
-// });
+app.use("/api", apiRoute);
 
 app.listen(3000, () =>
   console.log("server is starting, working on http://localhost:3000")

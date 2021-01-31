@@ -13,6 +13,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  cards: {
+    type: Array,
+    required: true,
+  },
+  userCategories: {
+    type: Array,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now,

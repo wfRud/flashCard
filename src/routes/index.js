@@ -1,14 +1,16 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-// const { render } = require("node-sass");
 const User = require("../models/User");
 const passport = require("passport");
-const { ensureAuthenticated } = require("../config/auth");
 const router = express.Router();
+
+// ====GET====
 
 router.get("/", (req, res) => {
   res.render("home", {
+    // session: req.session.passport.user,
     user: req.user,
+    path: req.path,
   });
 });
 
@@ -20,12 +22,13 @@ router.get("/register", (req, res) => {
   res.render("register");
 });
 
-// logout
 router.get("/logout", (req, res) => {
   req.logout();
   req.flash("succes_msg", `You've logged out`);
   res.redirect("/");
 });
+
+// ====POST====
 
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
@@ -37,6 +40,7 @@ router.post("/login", (req, res, next) => {
 
 router.post("/register", (req, res) => {
   const { email, login, password, password2 } = req.body;
+
   let errors = [];
   const emailRe = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi;
   const loginRe = /^[\w.-]{0,10}[0-9a-zA-Z]$/gi;
@@ -72,7 +76,6 @@ router.post("/register", (req, res) => {
   } else {
     User.find({ $or: [{ email: email }, { login: login }] }).exec(
       (err, user) => {
-        console.log(user);
         if (err) throw err;
 
         if (user.length != 0) {
@@ -94,6 +97,8 @@ router.post("/register", (req, res) => {
             email: email,
             login: login,
             password: password,
+            // cards: [],
+            // category: [],
           });
 
           bcrypt.hash(newUser.password, 10, (err, hash) => {

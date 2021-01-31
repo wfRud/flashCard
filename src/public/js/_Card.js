@@ -1,11 +1,9 @@
-import Storage from "./_Storage";
-
 export default class Card {
-  constructor(id, questionContent, answerContent, category) {
-    this.id = id;
+  constructor(id, questionContent, answerContent, cardCategories) {
+    this.id_card = id;
     this.questionContent = questionContent;
     this.answerContent = answerContent;
-    this.category = category;
+    this.cardCategories = cardCategories;
 
     const _card = document.createElement("div"),
       _deleteIcon = document.createElement("img"),
@@ -35,9 +33,9 @@ export default class Card {
     cardTextBack.className = "cards_cnt__card__inner__side__text";
     cardEditPanel.className =
       "cards_cnt__card__inner__side__edit-panel expanded";
-    this.getEditIcon().src = "./images/edit-regular.svg";
+    this.getEditIcon().src = "/images/edit-regular.svg";
     this.getEditIcon().alt = "edit icon";
-    this.getDeleteIcon().src = "./images/trash-alt-regular.svg";
+    this.getDeleteIcon().src = "/images/trash-alt-regular.svg";
     this.getDeleteIcon().alt = "delete icon";
 
     cardTextFront.textContent = this.questionContent;
@@ -58,40 +56,131 @@ export default class Card {
     cardCnt.appendChild(this.getCardElement());
   }
 
-  removeCardFromArr(arr) {
-    arr.splice(this.id, 1);
-  }
-
-  resetIndex(arr) {
-    arr.forEach((element, index) => (element.id = index));
-  }
-
-  resetElementAttrIndex() {
-    const cards = document.querySelectorAll(".cards_cnt__card");
-    cards.forEach((element, index) => {
-      element.setAttribute("id", index);
-    });
-  }
-
-  deleteCard(arr) {
+  deleteCard() {
     this.getDeleteIcon().addEventListener("click", () => {
-      let that = this;
-      this.removeCardFromArr(arr);
-      this.resetIndex(arr);
+      try {
+        const cardId = this.id_card;
+        fetch(`http://localhost:3000/user/dashboard/${cardId}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            this.showMessage(data.msg, "delete");
+          });
 
-      this.getCardElement().classList.add("delete");
-      setTimeout(function () {
-        that.getCardElement().remove();
-      }, 300);
-
-      this.resetElementAttrIndex();
-      Storage.setStorage("cards", arr);
+        this.getCardElement().classList.add("delete");
+        setTimeout(() => {
+          this.getCardElement().remove();
+        }, 300);
+      } catch (error) {
+        console.log(error);
+      }
     });
   }
 
-  editCard() {
-    this.getEditIcon().addEventListener("click", (e) => {
-      console.log("edit");
+  setEditDetails() {
+    const mainPanel = document.querySelector(".main_panel"),
+      expandBtn = document.querySelector(".main_panel__add__icon"),
+      addBtn = document.querySelector(".btn"),
+      mainPanelText = document.querySelector(".main_panel__add__text");
+
+    mainPanel.classList.add("edit");
+    expandBtn.classList.add("edit");
+    addBtn.classList.add("edit");
+    addBtn.textContent = "Edit Card";
+    mainPanelText.textContent = "Edit Card";
+  }
+
+  setEditFormContent(form) {
+    form.getQuestionInput().value = this.questionContent;
+    form.getAnswerInput().value = this.answerContent;
+
+    this.cardCategories.forEach((category) => {
+      const checkBox = document.getElementById(category);
+      checkBox.checked = true;
     });
+  }
+
+  resetEditDetails(form) {
+    const mainPanel = document.querySelector(".main_panel"),
+      expandBtn = document.querySelector(".main_panel__add__icon"),
+      addBtn = document.querySelector(".btn"),
+      mainPanelText = document.querySelector(".main_panel__add__text"),
+      cardPanelForm = document.querySelector(".main_panel__form");
+
+    cardPanelForm.classList.remove("expanded");
+    mainPanel.classList.remove("edit");
+    expandBtn.classList.remove("edit");
+    addBtn.classList.remove("edit");
+    addBtn.textContent = "Add Card";
+    mainPanelText.textContent = "Add Card";
+
+    form.clearForm();
+  }
+
+  updateCardData(form) {
+    this.questionContent = form.getQuestionInput().value;
+    this.answerContent = form.getAnswerInput().value;
+    this.cardCategories = form.getCategories();
+
+    delete this.edited;
+  }
+
+  updateCardContent(form) {
+    const questionText = this.getCardElement().querySelector(
+      ".cards_cnt__card__inner__side.front"
+    );
+    const answerText = this.getCardElement().querySelector(
+      ".cards_cnt__card__inner__side.back"
+    );
+
+    questionText.firstChild.textContent = form.getQuestionInput().value;
+    answerText.firstChild.textContent = form.getAnswerInput().value;
+  }
+
+  editCard(form) {
+    this.getEditIcon().addEventListener(
+      "click",
+      () => {
+        if (!this.edited) {
+          // clear form checkboxes
+          for (let radio of form.isChecked()) {
+            radio.checked = false;
+          }
+
+          const cardPanelForm = document.querySelector(".main_panel__form");
+          cardPanelForm.classList.add("expanded");
+
+          form.editFlag = true;
+          this.edited = true;
+
+          this.setEditDetails();
+          this.setEditFormContent(form);
+        } else {
+          form.editFlag = false;
+          delete this.edited;
+          this.resetEditDetails(form);
+        }
+      },
+      false
+    );
+  }
+
+  showMessage(msg, type) {
+    const hasShowed = document.querySelector(".main_panel__add__text--msg ");
+    if (!hasShowed) {
+      const msgElement = document.createElement("p");
+      const mainPanel = document.querySelector(".main_panel__add");
+      const addBtn = document.querySelector(".main_panel__add__icon");
+
+      msgElement.textContent = msg;
+      msgElement.className = `main_panel__add__text--msg ${type}`;
+
+      mainPanel.insertBefore(msgElement, addBtn);
+
+      setTimeout(() => {
+        msgElement.remove();
+      }, 3000);
+    }
   }
 }

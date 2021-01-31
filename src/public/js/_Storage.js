@@ -11,4 +11,8 @@ export default class Storage {
   static removeStorage(itemName) {
     localStorage.removeItem(itemName);
   }
+
+  static clearAllStorage() {
+    localStorage.clear();
+  }
 }

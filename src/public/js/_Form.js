@@ -4,36 +4,75 @@ export default class Form {
   constructor(maxLength) {
     this.getForm = () => _form;
     this.getFormInputs = () => _formInputs;
+    this.getCheckBoxesCnt = () => _checkBoxesCnt;
     this.getMaxLength = () => _maxLength;
     this.getCheckedInputs = () => _checkedInputs;
     this.getQuestionInput = () => _questionInput;
     this.getAnswerInput = () => _answerInput;
     this.getCategoryInput = () => _categoryInput;
+    this.editFlag = false;
 
     const _maxLength = maxLength,
       _form = document.getElementById("addCardForm"),
-      _formInputs = document.querySelectorAll("[name=form-input]"),
+      _formInputs = document.querySelectorAll("[data-role]"),
+      _checkBoxesCnt = document.getElementById("checkboxes-cnt"),
       _checkedInputs = [],
       _questionInput = this.getFormInputs()[0],
       _answerInput = this.getFormInputs()[1],
       _categoryInput = this.getFormInputs()[2];
 
     this.isNotEmpty = (field) => field.value !== "";
+
     this.isAtLeast = (field, max) => {
       return field.value.length <= max;
     };
+
     this.isChecked = () => {
       const isChecked = document.querySelectorAll("[type=checkbox]:checked");
       return isChecked;
     };
 
-    this.setInputStorage = (input) =>
-      input.addEventListener("input", () =>
-        Storage.setStorage(input.id, input.value)
-      );
+    this.getCategories = () => {
+      const categories = [];
 
-    this.getInputStorage = (input) => {
-      input.value = Storage.getStorage(input.id);
+      if (!!this.getCategoryInput().value) {
+        categories.push(...this.getCategoryInput().value.split(","));
+      }
+      if (this.isChecked()) {
+        for (let radio of this.isChecked()) {
+          // !! Jade has stopped render value attr corectly, use input's id attr instead
+          categories.push(radio.id);
+          // categories.push(radio.value);
+        }
+      }
+
+      return categories;
+    };
+
+    this.setInputStorage = (inputs) =>
+      inputs.forEach((input) => {
+        input.addEventListener("input", (e) => {
+          if (e.target.type === "checkbox") {
+            Storage.setStorage(input.id, input.id);
+          } else {
+            Storage.setStorage(input.id, input.value);
+          }
+        });
+      });
+
+    this.getInputStorage = (inputs) => {
+      inputs.forEach((input) => {
+        const isStorage = Storage.getStorage(input.id);
+        if (isStorage && input.type === "checkbox") {
+          const checkBoxes = document.querySelectorAll(
+            `#${Storage.getStorage(input.id)}`
+          );
+          checkBoxes.forEach((checkBox) =>
+            checkBox.setAttribute("checked", "checked")
+          );
+        }
+        input.value = Storage.getStorage(input.id);
+      });
     };
 
     this.clearForm = () => {
@@ -44,8 +83,7 @@ export default class Form {
       this.getCheckedInputs().length = 0;
 
       // Clear Storage
-      Storage.removeStorage(this.getQuestionInput().id);
-      Storage.removeStorage(this.getAnswerInput().id);
+      Storage.clearAllStorage();
 
       // Clear Radio inputs
       for (let radio of this.isChecked()) {
@@ -53,9 +91,10 @@ export default class Form {
       }
     };
 
-    this.inputsValids = () => {
+    this.inputsValid = () => {
       let isValid = false;
       let isChecked = false;
+      let newCategory = this.getCategoryInput().value;
 
       this.getFormInputs().forEach((item) => {
         if (item.type === "textarea") {
@@ -73,32 +112,24 @@ export default class Form {
           }
         } else if (item.type === "checkbox") {
           isChecked = !!this.isChecked().length;
-          if (!isChecked) {
+
+          if (!isChecked && !newCategory) {
             const label = document.querySelector(
               ".main_panel__form__checkboxes-cnt"
-            );
-            label.previousElementSibling.textContent =
-              label.previousElementSibling.dataset.warning;
-            label.previousElementSibling.classList.add("warning");
+            ).previousElementSibling;
+            label.textContent = label.dataset.warning;
+            label.classList.add("warning");
           } else {
             const label = document.querySelector(
               ".main_panel__form__checkboxes-cnt"
-            );
-            label.previousElementSibling.textContent =
-              label.previousElementSibling.dataset.content;
-            label.previousElementSibling.classList.remove("warning");
+            ).previousElementSibling;
+            label.textContent = label.dataset.content;
+            label.classList.remove("warning");
           }
         }
       });
 
-      if (isChecked) {
-        for (let radio of this.isChecked()) {
-          this.getCheckedInputs().push(radio.value);
-        }
-      }
-      console.log(`isValid = ${isValid} || isChecked = ${isChecked}`);
-
-      if (isValid && isChecked) {
+      if (isValid && (isChecked || !!newCategory)) {
         return true;
       } else {
         this.clearForm();

@@ -1,59 +1,28 @@
 import User from "./_User";
-import Card from "./_Card";
-import Form from "./_Form";
-import Storage from "./_Storage";
 
 export default class App {
   constructor() {
-    this.user = new User("Janek", "Kowalski");
-    this.form = new Form(150);
-
-    if (location.pathname === "/dashboard") {
-      this.user.updateCards(Storage.getStorage("cards"));
-      // console.log(location);
-
-      this.form.getInputStorage(this.form.getQuestionInput());
-      this.form.getInputStorage(this.form.getAnswerInput());
-      this.form.setInputStorage(this.form.getQuestionInput());
-      this.form.setInputStorage(this.form.getAnswerInput());
-
-      this.form.getForm().addEventListener("submit", this.addCard.bind(this));
-      this.renderCards(Storage.getStorage("cards"));
+    if (location.pathname === "/user/dashboard") {
+      this.initialize();
     }
   }
-  addCard(e) {
-    e.preventDefault();
+  async initialize() {
+    const response = await fetch("http://localhost:3000/api/dashboard");
+    const json = await response.json();
+    const { login, cards, categories } = json;
 
-    if (this.form.inputsValids()) {
-      const card = new Card(
-        this.user.getCards().length,
-        this.form.getQuestionInput().value,
-        this.form.getAnswerInput().value,
-        [...this.form.getCheckedInputs()]
-      );
+    this.user = new User(login, cards, categories);
 
-      this.user.setCards(card);
-      Storage.setStorage("cards", this.user.getCards());
-      card.createCard();
-      card.deleteCard(this.user.getCards());
-      card.editCard();
-      this.form.clearForm();
-    }
-  }
+    this.user.form.getInputStorage(this.user.form.getFormInputs());
+    this.user.form.setInputStorage(this.user.form.getFormInputs());
 
-  renderCards(cards) {
-    if (cards) {
-      cards.forEach((item) => {
-        const card = new Card(
-          item.id,
-          item.questionContent,
-          item.answerContent,
-          item.category
-        );
-        card.createCard();
-        card.deleteCard(this.user.getCards());
-        card.editCard();
-      });
-    }
+    this.user.form.getForm().addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!this.user.form.editFlag) {
+        this.user.addCard();
+      } else {
+        this.user.updateCard();
+      }
+    });
   }
 }
